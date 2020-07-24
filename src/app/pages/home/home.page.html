@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons routerLink="/tabs/login" *ngIf="!authService.isLoggedIn" slot="secondary">
+      <ion-button >
+        <ion-icon name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="authService.isLoggedIn" slot="secondary">
+      <ion-button (click)="authService.SignOut()" type="submit">
+        LOG OUT
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Itinerise
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding" *ngIf="authService.isLoggedIn && displayName"> <h3> Welcome, {{ displayName }}!</h3></div>
+  <div *ngIf="!authService.isLoggedIn" class="displayName ion-padding"> Hi! Welcome to Itinerise. You can go ahead and generate some trips or register to have remote access.</div>
+</ion-content>

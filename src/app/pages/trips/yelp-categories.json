@@ -1,0 +1,14 @@
+{
+  "sports": {
+    "values": "archery,axethrowing,badminton,baseballfields,basketballcourts,beachvolleyball,bicyclepaths,boating,bobsledding,bowling,bubblesoccer,bungeejumping,canyoneering,climbing,dartarenas,discgolf,diving,fencing,flyboarding,gliding,golf,gymnastics,handball,hanggliding,hiking,horseracing,horsebackriding,jetskis,kiteboarding,mini_golf,lawn_bowling,paragliding,parasailing,racingexperience,rafting,rock_climbing,sailing,skiing,skydiving,sledding,soccer,surfing,tennis,swimmingpools,trampoline,volleyball"
+  },
+  "food": {
+    "values": "food"
+  },
+  "beaches": {
+    "values": "beaches"
+  },
+  "wildlife": {
+    "values": "wildlifehunting,zoos,wildlifecontrol,parks"
+  }
+}

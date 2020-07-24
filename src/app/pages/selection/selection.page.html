@@ -1,0 +1,129 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="tabs/home"> </ion-back-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <h2 class="ion-padding-start ion-padding-bottom">Select trip options</h2>
+  <form [formGroup]="infovalidate" (ngSubmit)="onSubmit()">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Trip allowance</h4>
+          <ion-list>
+            <ion-radio-group formControlName="tripAllowance">
+              <ion-item *ngFor="let item of allowance, let i = index">
+                <ion-label>{{item.val}}</ion-label>
+                <ion-radio value="{{item.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Who is in your travel group?</h4>
+          <ion-list>
+            <ion-radio-group formControlName="travelGroup">
+              <ion-item *ngFor="let traveller of travellers, let i = index">
+                <ion-label>{{traveller.val}}</ion-label>
+                <ion-radio value="{{traveller.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+     
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Preferred means of travel</h4>
+          <ion-list>
+            <ion-radio-group formControlName="meansOfTravel">
+              <ion-item *ngFor="let item of travelTypes, let i = index">
+                <ion-label>{{item.val}}</ion-label>
+                <ion-radio value="{{item.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Diet preferences</h4>
+          <ion-list>
+            <ion-radio-group formControlName="diet">
+              <ion-item *ngFor="let item of diet, let i = index">
+                <ion-label>{{item.val}}</ion-label>
+                <ion-radio value="{{item.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Travel pace</h4>
+          <ion-list>
+            <ion-radio-group formControlName="pace">
+              <ion-item *ngFor="let item of pace, let i = index">
+                <ion-label>{{item.val}}</ion-label>
+                <ion-radio value="{{item.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Preferred activity type</h4>
+          <ion-list>
+            <ion-radio-group formControlName="preferredActivity">
+              <ion-item *ngFor="let item of preferences, let i = index">
+                <ion-label>{{item.val}}</ion-label>
+                <ion-radio value="{{item.val}}" slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <h4 class="ion-padding-start">Hobbies and interests</h4>
+          <ion-list formGroupName="myInterestsGroup">
+            <ion-item *ngFor="let item of interests">
+              <ion-label>{{item.val}}</ion-label>
+              <ion-checkbox
+                slot="start"
+                [(ngModel)]="item.isChecked"
+                formControlName="{{item.val}}"
+              ></ion-checkbox>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-button
+        type="submit"
+        [disabled]="
+        !infovalidate.get('travelGroup').valid ||
+        !infovalidate.get('tripAllowance').valid ||
+        !infovalidate.get('diet').valid ||
+        !infovalidate.get('pace').valid ||
+        !infovalidate.get('preferredActivity').valid ||
+        !infovalidate.get('myInterestsGroup').valid ||
+        !infovalidate.get('meansOfTravel').valid
+        "
+        class="ion-padding"
+        expand="block"
+        color="secondary"
+        >NEXT</ion-button
+      >
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,204 @@
+<ion-header *ngIf="currentTrip">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/trips"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ currentTrip.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="currentTrip">
+  <ion-grid>
+    <ion-row
+      *ngIf="preferredTransport == 'No transport found.'; else elseBlock"
+    >
+      <ion-col>
+        <ion-card>
+          <ion-card-title>
+            No transport to {{ destCity }} found.
+          </ion-card-title>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ng-template #elseBlock>
+      <ion-row>
+        <ion-col class="ion-no-padding" >
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle
+                >Start: {{ currentTrip.startCity.name }} to {{ destCity
+                }}</ion-card-subtitle
+              >
+              <ion-card-title
+                >Transport by {{ preferredTransport.type }} ({{
+                preferredTransport.operators }})
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  <ion-label
+                    >Start Time: {{ preferredTransport.startTime }}</ion-label
+                  >
+                </ion-item>
+                <ion-item>
+                  <ion-label
+                    >End Time: {{ preferredTransport.endTime }}</ion-label
+                  >
+                </ion-item>
+                <ion-item>
+                  <ion-label
+                    >Price: {{ preferredTransport.price }} {{
+                    preferredTransport.currency }}</ion-label
+                  >
+                </ion-item>
+                <ion-item>
+                  <ion-label
+                    >Total flight duration: {{ preferredTransport.duration }}</ion-label
+                  >
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+
+            <ion-item *ngIf="alternatives.length != 0">
+              <ion-label position="stacked">
+                Alternative transport options
+              </ion-label>
+              <ion-select>
+                <ion-select-option
+                  role="option"
+                  id="{{item.type}}{{item.duration}}"
+                  class="md hydrated"
+                  value="{{item.type}}"
+                  *ngFor="let item of alternatives, let i = index"
+                >
+                  {{ item.type }}, {{ item.duration}}, {{ item.price }} {{
+                  item.currency }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+
+    <div *ngFor="let item of currentTrip.route.location, let i = index">
+      <ion-row>
+        <ion-col class="ion-no-padding" >
+          <ion-card [routerLink]="['./', item.info.name]">
+            <ion-card-content>
+              <ion-text class="routes">
+                <b>{{ item.info.name }}</b> - {{ item.lengthOfStay }}
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-list class="ion-no-padding" lines="none">
+            <ion-item *ngIf="item.transport != undefined">
+              <ion-label>
+                <ion-text class="transports">
+                  <b>{{ item.transport[0].type }}: </b> {{
+                  item.transport[0].duration}}
+                </ion-text>
+              </ion-label>
+              <ion-select *ngIf="item.transport[1] != undefined">
+                <ion-select-option
+                  role="option"
+                  id="{{item.transport[1].type}}{{item.transport[1].duration}}"
+                  class="md hydrated"
+                  value="{{item.transport[1].type}}"
+                >
+                  <ion-text class="transports">
+                    <b> {{ item.transport[1].type }}: </b> {{
+                    item.transport[1].duration}}
+                  </ion-text>
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+    <ion-row
+    *ngIf="endPreferredTransport == 'No transport found.' || endPreferredTransport == undefined; else endElseBlock"
+  >
+    <ion-col>
+      <ion-card>
+        <ion-card-title>
+          No transport to {{ this.currentTrip.endCity.name }} found.
+        </ion-card-title>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ng-template #endElseBlock>
+    <ion-row>
+      <ion-col class="ion-no-padding" >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle
+              >Start: {{ this.currentTrip.route.location[this.currentTrip.route.location.length-1]["info"]["name"] }} to {{ this.currentTrip.endCity.name 
+              }}</ion-card-subtitle
+            >
+            <ion-card-title 
+              >Transport by {{ endPreferredTransport.type }} ({{
+              endPreferredTransport.operators }})
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label
+                  >Start Time: {{ endPreferredTransport.startTime }}</ion-label
+                >
+              </ion-item>
+              <ion-item>
+                <ion-label
+                  >End Time: {{ endPreferredTransport.endTime }}</ion-label
+                >
+              </ion-item>
+              <ion-item>
+                <ion-label
+                  >Price: {{ endPreferredTransport.price }} {{
+                  endPreferredTransport.currency }}</ion-label
+                >
+              </ion-item>
+              <ion-item>
+                <ion-label
+                  >Duration: {{ endPreferredTransport.duration }}</ion-label
+                >
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+
+          <ion-item *ngIf="endAlternatives.length != 0">
+            <ion-label position="stacked">
+              Alternative transport options
+            </ion-label>
+            <ion-select>
+              <ion-select-option
+                role="option"
+                id="{{item.type}}{{item.duration}}"
+                class="md hydrated"
+                value="{{item.type}}"
+                *ngFor="let item of endAlternatives, let i = index"
+              >
+                {{ item.type }}, {{ item.duration}}, {{ item.price }} {{
+                item.currency }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+  </ion-grid>
+</ion-content>

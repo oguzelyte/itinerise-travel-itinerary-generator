@@ -1,0 +1,95 @@
+<ion-header *ngIf="trip">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs/home"> </ion-back-button>
+    </ion-buttons>
+    <ion-title>Activities in {{ location }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="trip">
+  <ion-grid>
+    <ion-row *ngIf="days[0] == 'No activities found.'; else elseBlock">
+      <ion-col>
+        <ion-card>
+          <ion-card-title>
+            {{ days }}
+          </ion-card-title>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ng-template #elseBlock>
+      <div *ngFor="let day of days, let i= index">
+        <h3 class="ion-padding-start day day-padding">
+          {{ getAccurateDate(days[i].day)}} | Day {{ i + 1 }}
+        </h3>
+        <ion-row *ngFor="let activity of days[i].activity, let k= index">
+          <ion-col
+            *ngIf="activity.startTime != undefined; else noActivity"
+            class="ion-no-padding">
+            <ion-card>
+              <img
+                *ngIf="activity.img != 'No image.'"
+                src="{{activity.img}}"
+                class="full-image activity-img"
+                no-padding
+                no-margin
+                />
+              <ion-card-header>
+                <ion-card-subtitle>Time: {{ activity.startTime }} - {{
+                  activity.endTime}}
+                </ion-card-subtitle>
+                <ion-card-title>
+                  {{ activity.title }}
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                Here goes information about the place.
+                <div class="tags">
+                  <span
+                    class="tag"
+                    *ngFor="let tag of activity.tags.split(', ')">
+                    {{ tag }}
+                  </span>
+                </div>
+                <!--think of a way to color these or smth, test all the trip making options and 
+                                                    save trip to device through sqlite with the guide i found, eliminate duplicate
+                                                    activity entries and move the 'day 1' etc a bit to the right, think of what to do
+                                                  in the 'reviews', and 'smth else' bit, make the time more adequate by starting the trip
+                                                from when u land with the plane or the bus 'arrival time', if no transport found then 
+                                              'startTrip' time, same with ending the trip, figure out why some pics are not loading -->
+              </ion-card-content>
+
+              <ion-footer>
+                <ion-row>
+                  <ion-col class="ion-center ion-text-center">
+                    <ion-icon name="star"></ion-icon>
+                    <div>{{ activity.rating }}</div>
+                  </ion-col>
+                  <ion-col class="ion-center ion-text-center">
+                    <ion-icon name="pricetag"></ion-icon>
+                    <div>Something else</div>
+                  </ion-col>
+                  <ion-col class="ion-center ion-text-center">
+                    <ion-icon name="chatbubbles"></ion-icon>
+                    <div>Reviews</div>
+                  </ion-col>
+                </ion-row>
+              </ion-footer>
+            </ion-card>
+          </ion-col>
+          <ng-template #noActivity>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  {{ activity.title }}
+                </ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ng-template>
+        </ion-row>
+      </div>
+    </ng-template>
+  </ion-grid>
+</ion-content>

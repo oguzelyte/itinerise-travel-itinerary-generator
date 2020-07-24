@@ -1,0 +1,215 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button defaultHref="tabs/home"> </ion-back-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content>
+  <h2 class="ion-padding-start ion-padding-bottom">A bit about your trip</h2>
+  <form [formGroup]="infovalidate" (ngSubmit)="onSubmit()">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">
+              Start City
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input
+              [(ngModel)]="autocomplete.input"
+              (ionInput)="updateSearchResults()"
+              formControlName="startCity"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="notSelected">
+        <ion-col>
+          <ion-list [hidden]="autocompleteItems.length == 0">
+            <ion-item
+              *ngFor="let item of autocompleteItems"
+              tappable
+              (click)="selectSearchResult(item)">
+              {{ item.description }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding">
+        <ion-checkbox (click)="hideEndCity()"></ion-checkbox>
+        <ion-label class="ion-padding-start" style="font-size: 14px;">Start and
+          end city are the same.</ion-label>
+      </ion-row>
+      <ion-row *ngIf="different">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">End City
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input
+              [(ngModel)]="autocompleteEnd.input"
+              formControlName="endCity"
+              (ionInput)="updateEndSearchResults()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="notSelected2">
+        <ion-col>
+          <ion-list [hidden]="autocompleteItemsEnd.length == 0">
+            <ion-item
+              *ngFor="let item of autocompleteItemsEnd"
+              tappable
+              (click)="selectEndSearchResult(item)">
+              {{ item.description }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Destination (Country, Locality, Postal
+              Code)
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input
+              [(ngModel)]="autocompleteDestination.input"
+              formControlName="destination"
+              (ionInput)="updateDestinationResults()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="notSelected3">
+        <ion-col>
+          <ion-list [hidden]="autocompleteDestinations.length == 0">
+            <ion-item
+              *ngFor="let item of autocompleteDestinations"
+              tappable
+              (click)="selectDestinationResult(item)">
+              {{ item.description }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Start Date
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime
+              min="{{ startDate }}"
+              max="{{ currentYear + 2 }}"
+              displayFormat="D MMM YYYY"
+              [(ngModel)]="startDate"
+              formControlName="startDate">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">
+              Start Time
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime
+              displayFormat="HH:mm"
+              [(ngModel)]="startTime"
+              formControlName="startTime"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">End Date
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime
+              min="{{ startDate }}"
+              max="{{ currentYear + 2 }}"
+              displayFormat="D MMM YYYY"
+              [(ngModel)]="endDate"
+              formControlName="endDate">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">
+              End Time
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime
+              displayFormat="HH:mm"
+              [(ngModel)]="endTime"
+              formControlName="endTime"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">
+              Travellers
+              <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-select
+              formControlName="travellerCount"
+              interface="popover"
+              role="combobox"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              [(ngModel)]="travellerCount">
+              <ion-select-option
+                role="option"
+                id="ion-selopt-0"
+                class="md hydrated"
+                value="1">1</ion-select-option>
+              <ion-select-option
+                role="option"
+                id="ion-selopt-5"
+                class="md hydrated"
+                value="2">2</ion-select-option>
+              <ion-select-option
+                role="option"
+                id="ion-selopt-34"
+                class="md hydrated"
+                value="3">3</ion-select-option>
+              <ion-select-option
+                role="option"
+                id="ion-selopt-21"
+                class="md hydrated"
+                value="4">4</ion-select-option>
+              <ion-select-option
+                role="option"
+                id="ion-selopt-42"
+                class="md hydrated"
+                value="5">5</ion-select-option>
+              <ion-select-option
+                role="option"
+                id="ion-selopt-9"
+                class="md hydrated"
+                value="6">6</ion-select-option>
+              <input
+                type="hidden"
+                class="aux-input"
+                name="ion-sel-3"
+                value="n64"
+                /></ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-button
+        type="submit"
+        [disabled]="!infovalidate.valid"
+        class="ion-padding"
+        expand="block"
+        color="secondary">NEXT</ion-button>
+    </ion-grid>
+  </form>
+</ion-content>

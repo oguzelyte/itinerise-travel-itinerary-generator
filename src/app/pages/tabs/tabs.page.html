@@ -1,0 +1,21 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="trips">
+      <ion-icon name="airplane-outline"></ion-icon>
+      <ion-label>Trips</ion-label>
+      <ion-badge *ngIf="trips.length > 0">{{trips.length}}</ion-badge>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tripinfo">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-label>Create a Trip</ion-label>
+    </ion-tab-button>
+    </ion-tab-bar>
+
+</ion-tabs>
