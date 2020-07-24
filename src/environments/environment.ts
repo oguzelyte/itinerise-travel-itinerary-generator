@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyAuJjwXYVyy9xeK7PIATjU2PfAx56w4thA",
-    authDomain: "sylvan-key-235318.firebaseapp.com",
-    databaseURL: "https://sylvan-key-235318.firebaseio.com",
-    projectId: "sylvan-key-235318",
-    storageBucket: "sylvan-key-235318.appspot.com",
-    messagingSenderId: "16192402292",
-    appId: "1:16192402292:web:6c25a8b0f049daf57c3221",
-    measurementId: "G-0Y2RP0Y5FH"
+    apiKey: [removed],
+    authDomain: [removed],
+    databaseURL: [removed],
+    projectId: [removed],
+    storageBucket: [removed],
+    messagingSenderId: [removed],
+    appId: [removed],
+    measurementId: [removed]
   }
 };
 
